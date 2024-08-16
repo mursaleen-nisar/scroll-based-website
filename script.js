@@ -12,7 +12,7 @@ const images = [];
 
 const imagePreLoader = () => {
     for(let i = 1; i <= frames.totalFrames; i++) {
-        const imageUrl = `./Frames/frame_${i.toString().padStart(4, '0')}.jpg`;
+        const imageUrl = `./Frames/frame_${i.toString().padStart(4, '0')}.webp`;
         const img = new Image();
         img.src = imageUrl;
         img.onload = () => {
