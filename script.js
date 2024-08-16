@@ -1,5 +1,34 @@
 const canvas = document.querySelector("#main-canvas");
 const context = canvas.getContext("2d");
+const loader = document.querySelector("#loader");
+const mainContent = document.querySelector("#content");
+
+// Wait until all images are fully loaded
+window.addEventListener('load', () => {
+    if(window.innerWidth > 1024) {
+        // Hide the loader
+        gsap.to(loader, {
+            y: '-100%',
+            duration: 1.5,
+            ease: "power2.inOut"
+        });
+    } else {
+        loader.innerHTML = '<h2 id="loader-text" class="text-2xl font-light uppercase overflow-hidden">Open this website on laptop, pc, or any bigger screen for better experience.</h2>';
+    }
+    
+});
+
+// Prevent scrolling behind the fixed div
+function preventScroll(event) {
+    event.preventDefault();
+    event.stopPropagation();
+    return false;
+}
+
+// Disable scroll for both wheel and touchmove events
+loader.addEventListener('wheel', preventScroll, { passive: false });
+loader.addEventListener('touchmove', preventScroll, { passive: false });
+
 
 const frames = {
     currentFrame: 1,
@@ -125,6 +154,45 @@ const startAnimation = () => {
         .to('.panelism', { scale: 1.7, ease: 'circ' }, 'sixteenth')
 
 }
+
+// GSAP Loader Text Animation
+const elem = document.querySelector('#loader-text');
+const splittedText = elem.textContent.split('');
+
+let spanElem = "";
+splittedText.forEach((alphabet) => {
+    spanElem += `<span class="inline-block">${alphabet}</span>`;
+});
+elem.innerHTML = spanElem;
+
+// GSAP Loader Paragraph Animation
+const para = document.querySelector('#loader-para');
+const splittedParaText = para.textContent.split(' ');
+
+
+let spanParaElem = "";
+splittedParaText.forEach((word) => {
+    spanParaElem += `<span class="inline-block">${word}</span> `;
+});
+para.innerHTML = spanParaElem;
+
+const tl = gsap.timeline();
+
+tl
+    .from(`#loader-text span`, {
+        y: 120,
+        opacity: 0,
+        duration: 0.8,
+        stagger: 0.2
+    })
+
+    .from('#loader-para span', {
+        y: 100,
+        opacity: 0,
+        duration: 0.8,
+        stagger: 0.2
+    });
+
 
 const lenis = new Lenis()
 

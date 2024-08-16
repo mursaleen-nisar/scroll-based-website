@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Scroll Based Website</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="./stylesheets/style.css">
 
     <style>
 
@@ -32,7 +32,13 @@
 </head>
 <body>
 
-    <div class="w-full bg-zinc-900">
+    <!-- Loader screen -->
+    <div id="loader" class="fixed top-0 left-0 z-[10] w-full h-screen bg-zinc-900 flex flex-col justify-center items-center gap-1 text-white overflow-hidden">
+        <h2 id="loader-text" class="text-5xl font-light uppercase overflow-hidden">Loading &nbsp; &nbsp; Experience...</h2>
+        <p id="loader-para" class="text-zinc-500 overflow-hidden">This may take a minute or two. Depending on your internet speed.</p>
+    </div>
+
+    <div id="content" class="w-full bg-zinc-900">
         <div class="parent relative h-[2000vh] w-full bg-zinc-900 text-white">
             <div class="fixed w-full h-full">
                 <canvas class="w-full h-screen" id="main-canvas"></canvas>
