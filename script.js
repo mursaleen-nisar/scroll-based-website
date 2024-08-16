@@ -3,20 +3,21 @@ const context = canvas.getContext("2d");
 const loader = document.querySelector("#loader");
 const mainContent = document.querySelector("#content");
 
-// Wait until all images are fully loaded
-window.addEventListener('load', () => {
-    if(window.innerWidth > 1024) {
+// If website opened on mobile phone
+if(window.innerWidth < 1024) {
+    loader.innerHTML = '<h2 id="loader-text" class="text-2xl font-light uppercase overflow-hidden">Open &nbsp; this &nbsp; website &nbsp; on &nbsp; laptop, &nbsp; pc, &nbsp; or &nbsp; any &nbsp; bigger &nbsp; screen &nbsp; for &nbsp; better &nbsp; experience.</h2>';
+} else {
+    // Wait until all images are fully loaded
+    window.addEventListener('load', () => {
         // Hide the loader
         gsap.to(loader, {
             y: '-100%',
             duration: 1.5,
             ease: "power2.inOut"
         });
-    } else {
-        loader.innerHTML = '<h2 id="loader-text" class="text-2xl font-light uppercase overflow-hidden">Open this website on laptop, pc, or any bigger screen for better experience.</h2>';
-    }
-    
-});
+    });
+}
+
 
 // Prevent scrolling behind the fixed div
 function preventScroll(event) {
@@ -166,15 +167,17 @@ splittedText.forEach((alphabet) => {
 elem.innerHTML = spanElem;
 
 // GSAP Loader Paragraph Animation
-const para = document.querySelector('#loader-para');
-const splittedParaText = para.textContent.split(' ');
+if(window.innerWidth >= 1024) {
+    const para = document.querySelector('#loader-para');
+    const splittedParaText = para.textContent.split(' ');
 
 
-let spanParaElem = "";
-splittedParaText.forEach((word) => {
-    spanParaElem += `<span class="inline-block">${word}</span> `;
-});
-para.innerHTML = spanParaElem;
+    let spanParaElem = "";
+    splittedParaText.forEach((word) => {
+        spanParaElem += `<span class="inline-block">${word}</span> `;
+    });
+    para.innerHTML = spanParaElem;
+}
 
 const tl = gsap.timeline();
 
@@ -186,12 +189,14 @@ tl
         stagger: 0.2
     })
 
-    .from('#loader-para span', {
-        y: 100,
-        opacity: 0,
-        duration: 0.8,
-        stagger: 0.2
-    });
+    if(window.innerWidth >= 1024) {
+        tl.from('#loader-para span', {
+            y: 100,
+            opacity: 0,
+            duration: 0.8,
+            stagger: 0.2
+        });
+    }
 
 
 const lenis = new Lenis()
