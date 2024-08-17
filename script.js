@@ -5,7 +5,7 @@ const mainContent = document.querySelector("#content");
 
 // If website opened on mobile phone
 if(window.innerWidth < 1024) {
-    loader.innerHTML = '<h2 id="loader-text" class="text-2xl font-light uppercase overflow-hidden">Open &nbsp; this &nbsp; website &nbsp; on &nbsp; laptop, &nbsp; pc, &nbsp; or &nbsp; any &nbsp; bigger &nbsp; screen &nbsp; for &nbsp; better &nbsp; experience.</h2>';
+    loader.innerHTML = '<h2 class="text-xl font-light uppercase overflow-hidden p-2 border border-zinc-600">Open this website on laptop, pc, or any bigger screen for better experience.</h2>';
 } else {
     // Wait until all images are fully loaded
     window.addEventListener('load', () => {
@@ -156,18 +156,18 @@ const startAnimation = () => {
 
 }
 
-// GSAP Loader Text Animation
-const elem = document.querySelector('#loader-text');
-const splittedText = elem.textContent.split('');
-
-let spanElem = "";
-splittedText.forEach((alphabet) => {
-    spanElem += `<span class="inline-block">${alphabet}</span>`;
-});
-elem.innerHTML = spanElem;
-
-// GSAP Loader Paragraph Animation
 if(window.innerWidth >= 1024) {
+    // GSAP Loader Text Animation
+    const elem = document.querySelector('#loader-text');
+    const splittedText = elem.textContent.split('');
+
+    let spanElem = "";
+    splittedText.forEach((alphabet) => {
+        spanElem += `<span class="inline-block">${alphabet}</span>`;
+    });
+    elem.innerHTML = spanElem;
+
+    // GSAP Loader Paragraph Animation
     const para = document.querySelector('#loader-para');
     const splittedParaText = para.textContent.split(' ');
 
@@ -181,22 +181,23 @@ if(window.innerWidth >= 1024) {
 
 const tl = gsap.timeline();
 
-tl
-    .from(`#loader-text span`, {
+if(window.innerWidth >= 1024) {
+    tl.from(`#loader-text span`, {
         y: 120,
         opacity: 0,
         duration: 0.8,
         stagger: 0.2
     })
+}
 
-    if(window.innerWidth >= 1024) {
-        tl.from('#loader-para span', {
-            y: 100,
-            opacity: 0,
-            duration: 0.8,
-            stagger: 0.2
-        });
-    }
+if(window.innerWidth >= 1024) {
+    tl.from('#loader-para span', {
+        y: 100,
+        opacity: 0,
+        duration: 0.8,
+        stagger: 0.2
+    });
+}
 
 
 const lenis = new Lenis()
@@ -212,4 +213,6 @@ window.addEventListener("resize", () => {
     loadImage(Math.floor(frames.currentFrame));
 });
 
-imagePreLoader();
+if(window.innerWidth >= 1024) {
+    imagePreLoader();
+}
